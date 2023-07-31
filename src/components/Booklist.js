@@ -2,12 +2,20 @@ import React from "react";
 import Base from "../page/Base";
 import BookCard from "./BookCard";
 
-function Booklist({ data, setData }) {
+function Booklist({ BookData,setData }) {
   return (
     <Base>
-  <BookCard
-     data={data}
-     setData={setData}/>
+    {BookData.map((boo,idx)=>(
+        <BookCard
+        book={boo}
+        BookData={BookData}
+        setData={setData}
+        key={boo.id}
+        />
+      ))}
+    
+    
+    
     </Base>
   );
 }

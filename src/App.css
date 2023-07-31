@@ -16,7 +16,10 @@
 .sbody{
   height: inherit;
   row-gap:inherit;
+  padding-top: 90px ;
   border-radius: 5px;
+  flex-direction: column;
+  
 }
 .actions{
   background-color: black;
