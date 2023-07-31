@@ -4,7 +4,7 @@ export default function User() {
   return (
     <Base>
       <div><div className="overflow-x-auto">
-  <table className="table-lg table-zebra">
+  <table className="table-lg table  bg-orange-600">
     {/* head */}
     <thead>
       <tr>
@@ -18,21 +18,21 @@ export default function User() {
       {/* row 1 */}
       <tr>
         <th>1</th>
-        <td>Cy Ganderton</td>
+        <td>Adan</td>
         <td>Xxx city</td>
         <td>Active</td>
       </tr>
       {/* row 2 */}
       <tr>
         <th>2</th>
-        <td>Hart Hagerty</td>
+        <td>Yamini</td>
         <td>Ttt city</td>
         <td>Active</td>
       </tr>
       {/* row 3 */}
       <tr>
         <th>3</th>
-        <td>Brice Swyre</td>
+        <td>Bhavani</td>
         <td>Www city</td>
         <td>Deactive</td>
       </tr>

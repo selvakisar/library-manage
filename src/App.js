@@ -43,8 +43,8 @@ function App() {
         />
 
 <Route
-          path="/book/all"
-          element={<AddBooks BookData={data} setData={setData} />}
+          path="/addbook"
+          element={<AddBooks/>}
         />
       </Routes>
     </div>

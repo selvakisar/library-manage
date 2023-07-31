@@ -1,8 +1,12 @@
 import { useState } from "react";
 import Base from "../page/Base";
+import { useNavigate } from "react-router-dom";
 
 
 export default function AddBooks({BookData, setData}) {
+
+    const navigate=useNavigate();
+
     const [id, setId] = useState("");
     const [name, setName] = useState("");
     const [Author, setAuthor] = useState("");
@@ -32,13 +36,13 @@ export default function AddBooks({BookData, setData}) {
     }
     return (
         <Base>
-            <div className="p-5">Please Fill the form to add new Teacher</div>
+            <div className="p-5">Please Fill the form to add new Book</div>
             <div className="form-control">
                 <label className="input-group input-group-md  m-2">
-                    <span>ID </span>
+                    <span>ID     </span>
                     <input
                         type="number"
-                        placeholder="Enter Teacher ID"
+                        placeholder="Enter Book ID"
                         className="input input-bordered input-md w-96" 
                         value={id}
                         onChange={(e)=>setId(e.target.value)}
@@ -49,7 +53,7 @@ export default function AddBooks({BookData, setData}) {
                     <span>Name</span>
                     <input 
                     type="text" 
-                    placeholder="Enter Teacher Name" 
+                    placeholder="Enter Book Name" 
                     className="input input-bordered input-md w-96"
                     value ={name}
                     onChange={(e)=>setName(e.target.value)}
@@ -57,10 +61,10 @@ export default function AddBooks({BookData, setData}) {
                 </label>
 
                 <label className="input-group input-group-md  m-2">
-                    <span>Education</span>
+                    <span>Author</span>
                     <input 
                     type="text" 
-                    placeholder="Enter Teacher Education" 
+                    placeholder="Enter Author Name" 
                     className="input input-bordered input-md w-96"
                     value={Author}
                     onChange={(e)=>setAuthor(e.target.value)}
@@ -68,29 +72,29 @@ export default function AddBooks({BookData, setData}) {
                 </label>
 
                 <label className="input-group input-group-md  m-2">
-                    <span>Subject</span>
+                    <span>Language</span>
                     <input type="text"
-                     placeholder="Enter Teacher Batch" 
+                     placeholder="Enter Language " 
                      className="input input-bordered input-md w-96" 
                      value={Language}
                      onChange={(e)=>setLanguage(e.target.value)}
                      />
                 </label>
                 <label className="input-group input-group-md  m-2">
-                    <span>Email</span>
+                    <span>Pages</span>
                     <input 
                     type="text" 
-                    placeholder="Enter Teacher Email" 
+                    placeholder="Enter the pages count" 
                     className="input input-bordered input-md w-96" 
                     value ={Pages}
                     onChange={(e)=>setPages(e.target.value)}
                     />
                 </label>
                 <label className="input-group input-group-md m-2">
-                    <span>Phone</span>
+                    <span>Published</span>
                     <input
                      type="text"
-                      placeholder="Enter Teacher Phone"
+                      placeholder="Enter Published Year "
                        className="input input-bordered input-md w-96" 
                        value={Published}
                        onChange={(e)=>setPublished(e.target.value)}
@@ -99,7 +103,7 @@ export default function AddBooks({BookData, setData}) {
                
 
                 <button className="rounded-full bg-base-200 p-2 m-5"
-                onClick={addnewBook}
+                onClick={()=>navigate("/book/all")}
                 >
                     Add Book
                 </button>
