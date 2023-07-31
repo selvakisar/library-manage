@@ -9,7 +9,7 @@ setData (newBooklist);
 
   return (
     <div>
-      <div className="card card-compact w-96  p-1 bg-accent
+      <div className="card card-compact w-96 m-2 p-1 bg-accent
       shadow-xl">
         <div className="card-body">
           <h1 className="card-title ">{book.name}</h1>

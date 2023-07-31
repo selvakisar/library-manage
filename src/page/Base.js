@@ -14,7 +14,7 @@ function Base({children}) {
           <Sidebar />
         </div>
         <div className="divider lg:divider-horizontal bg-accent"></div>
-        <div className="grid flex-row h-screen w-4/5  card m-1 bg-base-400   rounded-box place-items-center">
+        <div className=" flex-col h-screen w-4/5 card m-2 bg-base-400   rounded-box place-items-center">
                 {children}
         </div>
       </div>

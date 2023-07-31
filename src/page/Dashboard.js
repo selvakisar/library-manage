@@ -1,18 +1,19 @@
 import {  useEffect} from 'react'
 import Base from './Base'
-import BookCard from '../components/BookCard'
+import { useNavigate } from 'react-router-dom'
 
 function Dashboard({bookd}) {
 
-
+const navigate =useNavigate();
 useEffect(()=>{
     console.log("am mounted")
 },[]) 
   return (
    
         <Base> 
-        
-        <div className="hero min-h-screen bg-base-200">
+   <div>
+    
+        <div className="hero min-h-screen bg-base-100">
   <div className="hero-content flex-col lg:flex-row-reverse">
     <div className="text-center lg:text-left">
       <h1 className="text-5xl font-bold">Login now to Manage!</h1>
@@ -42,7 +43,7 @@ useEffect(()=>{
     </div>
   </div>
 </div>
-    
+</div>
         </Base>
 
 

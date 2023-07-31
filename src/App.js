@@ -6,6 +6,7 @@ import Booklist from "./components/Booklist";
 import { Routes, Route } from "react-router-dom";
 import Dashboard from "./page/Dashboard";
 import User from "./page/User";
+import AddBooks from "./components/AddBook";
 function App() {
   const BookData = [
     {
@@ -39,6 +40,11 @@ function App() {
         <Route
           path="/book/all"
           element={<Booklist BookData={data} setData={setData} />}
+        />
+
+<Route
+          path="/book/all"
+          element={<AddBooks BookData={data} setData={setData} />}
         />
       </Routes>
     </div>
