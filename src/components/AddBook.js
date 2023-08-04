@@ -1,12 +1,14 @@
 import { useState } from "react";
 import Base from "../page/Base";
 import { useNavigate } from "react-router-dom";
+import { Appstate } from "./Context/AppProvider";
 
 
-export default function AddBooks({BookData, setData}) {
 
+export default function AddBooks() {
+    const {BookData, setData}=Appstate()
     const navigate=useNavigate();
-
+    
     const [id, setId] = useState("");
     const [name, setName] = useState("");
     const [Author, setAuthor] = useState("");
@@ -15,7 +17,7 @@ export default function AddBooks({BookData, setData}) {
     const [Published, setPublished] = useState("");
     //setId(value) => id
 
-    function addnewBook(){
+    function addNewBook(){
       const newBookObj = {
         id, 
         name, 
@@ -25,14 +27,17 @@ export default function AddBooks({BookData, setData}) {
         Published
       }
       console.log(newBookObj)
-      // add new data
-    setData([...BookData,newBookObj]);
-    setId("");
-    setName("");
-    setAuthor("");
-    setPages("");
-    setPublished("");
-    setLanguage("");
+      
+    //   // add new data
+            setData([...BookData,newBookObj]);
+            setId("");
+            setName("");
+            setAuthor("");
+            setPages("");
+            setPublished("");
+            setLanguage("");
+            navigate("/book/all")
+          
     }
     return (
         <Base>
@@ -103,8 +108,8 @@ export default function AddBooks({BookData, setData}) {
                
 
                 <button className="rounded-full bg-base-200 p-2 m-5"
-                onClick={()=>navigate("/book/all")}
-                >
+           onClick={addNewBook}
+                 >
                     Add Book
                 </button>
             </div>

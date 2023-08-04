@@ -1,16 +1,17 @@
 import React from "react";
 import Base from "../page/Base";
 import BookCard from "./BookCard";
+import { Appstate } from "./Context/AppProvider";
 
-function Booklist({ BookData,setData }) {
+function Booklist() {
+const {BookData}=Appstate();
   return (
     <Base>
-    {BookData.map((boo,idx)=>(
+    {BookData.map((boook,index)=>(
         <BookCard
-        book={boo}
-        BookData={BookData}
-        setData={setData}
-        key={boo.id}
+        book={boook}
+
+        key={boook.id}
         />
       ))}
     

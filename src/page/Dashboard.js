@@ -31,13 +31,13 @@ useEffect(()=>{
           <label className="label">
             <span className="label-text">Password</span>
           </label>
-          <input type="text" placeholder="password" className="input input-bordered" />
+          <input type="password" placeholder="password" className="input input-bordered" />
           <label className="label">
             <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
           </label>
         </div>
         <div className="form-control mt-6">
-          <button  className="btn btn-primary">Login</button>
+          <button  className="btn btn-primary" onClick={()=>navigate("/book/all")}>Login</button>
         </div>
       </div>
     </div>
