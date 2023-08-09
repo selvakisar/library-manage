@@ -2,13 +2,13 @@ import { useNavigate, useParams } from "react-router-dom";
 import Base from "../page/Base";
 import { useEffect, useState } from "react";
 import { Appstate } from "./Context/AppProvider";
+import { Api } from "./Api/API";
 
 export default function Editbook() {
     const { BookData, setData }=Appstate();
   const navigate = useNavigate();
   const { id } = useParams();
 
-  const [idx, setIdx] = useState("");
   const [name, setName] = useState("");
   const [Author, setAuthor] = useState("");
   const [Language, setLanguage] = useState("");
@@ -18,33 +18,43 @@ export default function Editbook() {
   useEffect(() => {
     console.log("id: ", id);
 
-    const toEditBookById = BookData.find(
-      (book, index) => book.id === parseInt(id)
-    );
-    // console.log(toEditBookById)
+    const toEditBookById = BookData.find((book, index) => book.id === id);
+    console.log(toEditBookById)
 
-    setIdx(toEditBookById.id);
     setName(toEditBookById.name);
     setAuthor(toEditBookById.Author);
     setLanguage(toEditBookById.Language);
     setPages(toEditBookById.Pages);
     setPublished(toEditBookById.Published);
-  }, [id,BookData]);
-  function editbook(){
+  }, []);
+
+
+  async function editbook(){
     const editedBookObj={
-        id:idx,
         name,
         Author,
         Language,
         Pages,
         Published,
     }
-    console.log(editedBookObj)
+    // api call
+const response = await fetch(`${Api}/${id}`,{
+  method: 'PUT',
+  body: JSON.stringify(editedBookObj),
+  headers:{
+    'content-type':"application/json"
+}
+})
+
+const data=await response.json();
+console.log(data)
+
+    console.log(editedBookObj) 
     // find index is same for selected book to edit and populate  in to UI
         const bookIndex = 
-        BookData.findIndex((book,index)=>book.id === parseInt(id))
+        BookData.findIndex((book,index)=>book.id === id)
         console.log(bookIndex)
-        BookData[bookIndex]=editedBookObj
+        BookData[bookIndex]=data;
         setData([...BookData])
         navigate("/book/all")
   }
@@ -52,16 +62,7 @@ export default function Editbook() {
     <Base>
       <div className="p-5">Please Fill the form to add new Book</div>
       <div className="form-control">
-        <label className="input-group input-group-md  m-2">
-          <span>ID </span>
-          <input
-            type="number"
-            placeholder="Enter Book ID"
-            className="input input-bordered input-md w-96"
-            value={idx}
-            onChange={(e) => setIdx(e.target.value)}
-          />
-        </label>
+  
 
         <label className="input-group input-group-md m-2">
           <span>Name</span>

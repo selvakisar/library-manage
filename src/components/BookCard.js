@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Appstate } from "./Context/AppProvider";
+import { Api } from "./Api/API";
 
 export default function BookCard({ book}) {
 const {BookData,setData}=Appstate()
@@ -9,9 +10,18 @@ const {BookData,setData}=Appstate()
 const navigate=useNavigate()
 
 
-const delBook = (id)=>{
+const delBook = async (id)=>{
+
+
+   
   let res = window.confirm("Are you sure you want to delete")
   if (res){
+    // api operation 
+    const response = await fetch(`${Api}/${id}`,{
+      method: "DELETE",
+    });
+    const data=await response.json();
+    console.log(data);
     const newBooklist = BookData.filter((book,idx)=>book.id !== id)
     setData (newBooklist);
   }

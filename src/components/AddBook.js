@@ -1,41 +1,65 @@
-import { useState } from "react";
 import Base from "../page/Base";
 import { useNavigate } from "react-router-dom";
 import { Appstate } from "./Context/AppProvider";
+import { Api } from "./Api/API";
+import { useFormik } from "formik";
+import { BookSchema } from "./bookschema/bookschema";
 
 
 
 export default function AddBooks() {
+//  formik using to validate
+const {values,
+    handleChange,
+    handleSubmit,
+    handleBlur,
+    errors,
+    touched} = useFormik(
+    {
+        initialValues:{
+            name:"",
+            Author:"",
+            Pages:"",
+            Published:"",
+            Language:"",
+        },
+        validationSchema:BookSchema,
+        onSubmit:(newBook)=>{
+            console.log(newBook)
+            addNewBook(newBook)
+
+        }
+    }
+)
+
+    
     const {BookData, setData}=Appstate()
     const navigate=useNavigate();
     
-    const [id, setId] = useState("");
-    const [name, setName] = useState("");
-    const [Author, setAuthor] = useState("");
-    const [Language, setLanguage] = useState("");
-    const [Pages, setPages] = useState("");
-    const [Published, setPublished] = useState("");
-    //setId(value) => id
 
-    function addNewBook(){
-      const newBookObj = {
-        id, 
-        name, 
-        Author, 
-        Language, 
-        Pages,
-        Published
-      }
-      console.log(newBookObj)
+
+    async function addNewBook(newBook){
+   
+
+        const response = await fetch(Api,{
+            method: "POST",
+            body: JSON.stringify(newBook),
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        })
+            const data= await response.json()
+            // console.log(data);
+            // console.log(newBook)
       
     //   // add new data
-            setData([...BookData,newBookObj]);
-            setId("");
-            setName("");
-            setAuthor("");
-            setPages("");
-            setPublished("");
-            setLanguage("");
+            setData([...BookData,data]);
+  
+            values.name=""
+            values.Author=""
+            values.Pages=""
+            values.Published=""
+            values.Language=""
             navigate("/book/all")
           
     }
@@ -43,27 +67,24 @@ export default function AddBooks() {
         <Base>
             <div className="p-5">Please Fill the form to add new Book</div>
             <div className="form-control">
-                <label className="input-group input-group-md  m-2">
-                    <span>ID     </span>
-                    <input
-                        type="number"
-                        placeholder="Enter Book ID"
-                        className="input input-bordered input-md w-96" 
-                        value={id}
-                        onChange={(e)=>setId(e.target.value)}
-                        />
-                </label>
-
+           
+                <form onSubmit={handleSubmit}>
                 <label className="input-group input-group-md m-2">
                     <span>Name</span>
                     <input 
                     type="text" 
                     placeholder="Enter Book Name" 
                     className="input input-bordered input-md w-96"
-                    value ={name}
-                    onChange={(e)=>setName(e.target.value)}
+                    value ={values.name}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    name="name"
                      />
                 </label>
+                {touched.name && errors.name ? 
+                     <div className="text-red-300">
+                         {errors.name}
+                     </div> : ""}
 
                 <label className="input-group input-group-md  m-2">
                     <span>Author</span>
@@ -71,47 +92,73 @@ export default function AddBooks() {
                     type="text" 
                     placeholder="Enter Author Name" 
                     className="input input-bordered input-md w-96"
-                    value={Author}
-                    onChange={(e)=>setAuthor(e.target.value)}
+                    value={values.Author}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    name="Author"
                      />
                 </label>
+                {touched.Author && errors.Author ? 
+                     <div className="text-red-300">
+                         {errors.Author}
+                     </div> : ""}
 
                 <label className="input-group input-group-md  m-2">
                     <span>Language</span>
                     <input type="text"
                      placeholder="Enter Language " 
                      className="input input-bordered input-md w-96" 
-                     value={Language}
-                     onChange={(e)=>setLanguage(e.target.value)}
+                     value={values.Language}
+                     onChange={handleChange}
+                     onBlur={handleBlur}
+                     name="Language"
                      />
                 </label>
+                {touched.Language && errors.Language ? 
+                     <div className="text-red-300">
+                         {errors.Language}
+                     </div> : ""}
                 <label className="input-group input-group-md  m-2">
                     <span>Pages</span>
                     <input 
                     type="text" 
                     placeholder="Enter the pages count" 
                     className="input input-bordered input-md w-96" 
-                    value ={Pages}
-                    onChange={(e)=>setPages(e.target.value)}
+                    value ={values.Pages}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    name="Pages"
                     />
                 </label>
+                {touched.Pages && errors.Pages ? 
+                     <div className="text-red-300">
+                         {errors.Pages}
+                     </div> : ""}
+
                 <label className="input-group input-group-md m-2">
                     <span>Published</span>
                     <input
                      type="text"
                       placeholder="Enter Published Year "
                        className="input input-bordered input-md w-96" 
-                       value={Published}
-                       onChange={(e)=>setPublished(e.target.value)}
+                       value={values.Published}
+                       onChange={handleChange}
+                       onBlur={handleBlur}
+                       name="Published"
                        />
                 </label>
+                {touched.Published && errors.Published ? 
+                     <div className="text-red-300">
+                         {errors.Published}
+                     </div> : ""}
                
 
                 <button className="rounded-full bg-base-200 p-2 m-5"
-           onClick={addNewBook}
+         type="submit"
                  >
                     Add Book
                 </button>
+                </form>
             </div>
         </Base>
     )
